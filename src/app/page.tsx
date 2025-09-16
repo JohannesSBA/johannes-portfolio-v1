@@ -27,8 +27,8 @@ export default function Home() {
       >
         <StaggeredMenu
           position="right"
-          items={menuItems}
-          socialItems={socialItems}
+          items={[...menuItems]}
+          socialItems={[...socialItems]}
           displaySocials={true}
           displayItemNumbering={true}
           menuButtonColor="#fff"
