@@ -1,9 +1,12 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Mail, Copy, Check, ChevronDown } from "lucide-react";
 import Loop from "../Loop";
 import DecryptedText from "../DecryptedText";
 import dynamic from "next/dynamic";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
+import { sendContact } from "@/lib/contact/client";
+import type { ContactPayload } from "@/lib/contact/types";
 const FaultyTerminal = dynamic(() => import("../FaultyTerminal"), {
   ssr: false,
 });
@@ -48,30 +51,11 @@ const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement>) => (
 );
 
 const Contact = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const [copied, setCopied] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitOk, setSubmitOk] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            // Do not unobserve to keep simple one-shot animation
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   const copyEmail = async () => {
     try {
@@ -219,20 +203,21 @@ const Contact = () => {
               e.preventDefault();
               const form = e.currentTarget as HTMLFormElement;
               const fd = new FormData(form);
-              const payload = Object.fromEntries(fd.entries());
+              const entries = Object.fromEntries(fd.entries());
+              const payload: ContactPayload = {
+                name: String(entries.name || ""),
+                email: String(entries.email || ""),
+                brief: String(entries.brief || ""),
+                url: entries.url ? String(entries.url) : undefined,
+                stage: entries.stage ? String(entries.stage) : undefined,
+                deadline: entries.deadline ? String(entries.deadline) : undefined,
+                budget: entries.budget ? String(entries.budget) : undefined,
+              };
               setSubmitting(true);
               setSubmitError("");
               setSubmitOk(false);
               try {
-                const res = await fetch("/api/contact", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(payload),
-                });
-                const json = await res.json().catch(() => ({}));
-                if (!res.ok || !json?.ok) {
-                  throw new Error(json?.error || "Failed to send");
-                }
+                await sendContact(payload);
                 setSubmitOk(true);
                 form.reset();
               } catch (err: unknown) {

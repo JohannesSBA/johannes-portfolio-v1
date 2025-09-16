@@ -5,6 +5,7 @@ const LightRays = dynamic(() => import("@/components/LightRays"), {
 });
 import About from "@/components/page/about";
 import StaggeredMenu from "@/components/StaggeredMenu";
+import { menuItems, socialItems } from "@/lib/siteConfig";
 import Projects from "@/components/page/projects";
 import { useState } from "react";
 import Experience from "@/components/page/experience";
@@ -14,22 +15,7 @@ import HomePage from "@/components/page/home";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuItems = [
-    { label: "Home", ariaLabel: "Go to home page", link: "#home" },
-    { label: "About", ariaLabel: "Learn about us", link: "#about" },
-    { label: "Projects", ariaLabel: "View our projects", link: "#projects" },
-    {
-      label: "Experiences",
-      ariaLabel: "View my experiences",
-      link: "#experiences",
-    },
-    { label: "Contact", ariaLabel: "Get in touch", link: "#contact" },
-  ];
-
-  const socialItems = [
-    { label: "GitHub", link: "https://github.com/JohannesSBA" },
-    { label: "LinkedIn", link: "https://linkedin.com/in/johannes-bekele" },
-  ];
+  // menuItems and socialItems now centralized in config
 
   return (
     <div className="relative min-h-screen bg-[#060010] overflow-x-hidden transition-all duration-300 scroll-smooth">

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Loop from "../Loop";
 import { Briefcase, GraduationCap, Calendar, MapPin } from "lucide-react";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
 
 type ExperienceItem = {
   role: string;
@@ -137,26 +138,8 @@ const ExperienceCard = ({ item }: { item: ExperienceItem }) => (
 );
 
 const Experience = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const itemRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            // Do not unobserve to keep simple one-shot animation
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const itemRef = React.useRef<HTMLDivElement | null>(null);
   return (
     <div
       ref={sectionRef}

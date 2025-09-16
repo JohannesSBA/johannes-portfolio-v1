@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import Image from "next/image";
 import { Github, ExternalLink } from "lucide-react";
 import Loop from "../Loop";
 import DecryptedText from "../DecryptedText";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
 
 type Project = {
   title: string;
@@ -79,25 +80,7 @@ const CTA = ({
 );
 
 const Projects = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            // Do not unobserve to keep simple one-shot animation
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   return (
     <div
       ref={sectionRef}
