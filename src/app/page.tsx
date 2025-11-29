@@ -17,7 +17,7 @@ export default function Home() {
   // menuItems and socialItems now centralized in config
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden transition-all duration-300 scroll-smooth bg-gradient-to-br from-[#0c1322] via-[#0d1728] to-[#0a1120] text-white">
+    <div className="relative min-h-screen overflow-x-hidden transition-all p-6 duration-300 scroll-smooth bg-gradient-to-br from-[#0c1322] via-[#0d1728] to-[#0a1120] text-white">
       {/* Background atmosphere */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(900px_at_15%_15%,rgba(126,188,255,0.14),transparent_60%)]" />
@@ -64,7 +64,7 @@ export default function Home() {
       </div>
       {/* Hero */}
       <section
-        className="min-h-screen flex items-center relative z-[100]" // removed pointer-events-none
+        className="min-h-screen flex items-center relative z-[100] scale-95" // removed pointer-events-none
         id="home"
       >
         <HomePage />
