@@ -53,7 +53,7 @@ export default function Home() {
               }`}
             >
               <DecryptedText
-                text="Backend-leaning Software Engineer building scalable web platforms with Next.js, Postgres, and AWS."
+                text="Frontend-leaning Software Engineer building scalable web platforms with Next.js, Postgres, and AWS."
                 speed={60}
                 maxIterations={20}
                 sequential={true}
@@ -61,9 +61,9 @@ export default function Home() {
                 useOriginalCharsOnly
                 revealDirection="start"
                 characters="ABCD1234!?"
-                className={`leading-tight text-white text-4xl sm:text-5xl md:text-6xl font-[var(--font-display)] font-semibold`}
-                encryptedClassName="text-white/80 blur-[0.5px]"
-                parentClassName="leading-tight"
+                className="leading-tight text-white text-4xl sm:text-5xl md:text-6xl font-[var(--font-display)] font-semibold"
+                encryptedClassName="leading-tight text-white/80 text-4xl sm:text-5xl md:text-6xl font-[var(--font-display)] font-semibold blur-[0.5px]"
+                parentClassName="leading-tight text-4xl sm:text-5xl md:text-6xl font-[var(--font-display)] font-semibold"
               />
             </div>
           </div>
