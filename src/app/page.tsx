@@ -12,13 +12,19 @@ import Experience from "@/components/page/experience";
 import Contact from "@/components/page/contact";
 import HomePage from "@/components/page/home";
 
-
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // menuItems and socialItems now centralized in config
 
   return (
-    <div className="relative min-h-screen bg-[#060010] overflow-x-hidden transition-all duration-300 scroll-smooth">
+    <div className="relative min-h-screen overflow-x-hidden transition-all duration-300 scroll-smooth bg-gradient-to-br from-[#0c1322] via-[#0d1728] to-[#0a1120] text-white">
+      {/* Background atmosphere */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(900px_at_15%_15%,rgba(126,188,255,0.14),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(1100px_at_82%_10%,rgba(125,209,200,0.12),transparent_60%)]" />
+        <div className="absolute inset-0 grid-overlay opacity-60" />
+        <div className="absolute inset-0 grainy opacity-40 mix-blend-soft-light" />
+      </div>
       {/* Floating menu */}
       <div
         className={`h-screen bg-transparent fixed top-0 left-0 w-full z-[500] ${
@@ -34,9 +40,9 @@ export default function Home() {
           menuButtonColor="#fff"
           openMenuButtonColor="#000"
           changeMenuColorOnOpen={true}
-          colors={["#B19EEF", "#5227FF"]}
+          colors={["#5eb1ef", "#7dd1c8"]}
           className="relative z-[100]" // remove pointer-events-none here too
-          accentColor="#5227FF"
+          accentColor="#5eb1ef"
           onMenuOpen={() => setIsMenuOpen(true)}
           onMenuClose={() => setIsMenuOpen(false)}
         />
@@ -44,7 +50,7 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none  z-[50]">
         <LightRays
           raysOrigin="top-center"
-          raysColor="#5227FF"
+          raysColor="#5eb1ef"
           raysSpeed={3}
           lightSpread={2}
           rayLength={3}

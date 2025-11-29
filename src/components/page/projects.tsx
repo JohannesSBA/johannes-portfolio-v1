@@ -1,103 +1,93 @@
 import React from "react";
-import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import Image from "next/image";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, Sparkles } from "lucide-react";
 import Loop from "../Loop";
-import DecryptedText from "../DecryptedText";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
+import DecryptedText from "../DecryptedText";
 
+type LinkSet = { label: string; href?: string };
 type Project = {
   title: string;
-  blurb: string;
+  timeframe: string;
+  summary: string;
+  impact: string;
+  stack: string[];
   image?: string;
-  tags: string[];
-  links?: { demo?: string; repo?: string };
-  glow?: string; // per-card hover glow color
+  links?: LinkSet[];
+  badge?: string;
+  highlight?: string;
 };
 
-const projectsData: Project[] = [
+const projects: Project[] = [
+  {
+    title: "Kickaas",
+    timeframe: "2025",
+    summary:
+      "AI-enhanced event platform with real-time ticketing, interactive venue maps, and scalable microservices.",
+    impact:
+      "Built responsive UI and integrated Stripe, scheduling, and CI/CD to stabilize deployments across environments.",
+    stack: ["Next.js", "FastAPI", "TypeScript", "Tailwind", "Stripe", "CI/CD"],
+    links: [
+      { label: "Github", href: "https://github.com/BUMETCS673/cs673f25a2project-cs673a2f25team5" },
+    ],
+    image: "/kickaas.png",
+    badge: "AI + Events",
+    highlight: "Real-time ticketing",
+  },
   {
     title: "Econnect",
-    blurb:
-      "A social platform that helps job seekers connect with employers, featuring profiles, posts, and a hiring flow.",
+    timeframe: "2024",
+    summary:
+      "Professional networking and job-matching platform built for Ethiopia with localized onboarding and multi-language support.",
+    impact:
+      "Implemented role-based routing, Chapa-powered payments, S3 uploads, and real-time messaging to keep employers and seekers in sync.",
+    stack: ["Next.js", "TypeScript", "Prisma", "Postgres", "AWS S3", "Chapa"],
+    links: [
+      { label: "Live", href: "https://econnectpilot.com" },
+      { label: "Repo", href: "https://github.com/JohannesSBA/econnect-dev" },
+    ],
     image: "/econnect.jpeg",
-    tags: ["Next.js", "TypeScript", "Prisma", "Postgres", "Tailwind"],
-    links: {
-      demo: "https://econnectpilot.com",
-      repo: "https://github.com/JohannesSBA/econnect-dev",
-    },
-    glow: "#8b5cf6cc", // violet
+    badge: "Networking",
+    highlight: "Localized onboarding",
   },
   {
-    title: "Portfolio Website",
-    blurb:
-      "This site — built with Next.js and motion experiments. Focused on playful interactions and performance.",
-    image: "/jojo.jpg",
-    tags: ["Next.js", "Lenis", "GSAP", "Tailwind"],
-    links: { demo: "#", repo: "#" },
-    glow: "#22d3eecc", // cyan
-  },
-  {
-    title: "Freelance Work",
-    blurb:
-      "Projects I've worked on for clients. Mostly web development and design. Some mobile development as well.",
-    tags: ["Framer Motion", "Next.js", "Tailwind", "UX"],
+    title: "Core Development Payments",
+    timeframe: "2024",
+    summary:
+      "Parking and EV charging payment experience for Core Development, shipped across web and mobile.",
+    impact:
+      "Delivered React + AWS Amplify stack, improving payment flow clarity and uptime for station customers.",
+    stack: ["React", "AWS Amplify", "Stripe", "Tailwind", "Mobile"],
+    links: [{ label: "Live", href: "https://www.coredevelopment.org" }],
     image: "/freelance.png",
-    links: {
-      demo: "https://www.coredevelopment.org",
-      repo: "https://github.com/JohannesSBA/coredevelopment",
-    },
-    glow: "#f43f5ecc", // rose
+    badge: "Client build",
+    highlight: "Web + mobile",
   },
 ];
 
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-white/90">
+const Tag = ({ children }: { children: React.ReactNode }) => (
+  <span className="inline-flex items-center rounded-full bg-white/10 border border-white/15 px-3 py-1 text-xs text-white/80 backdrop-blur">
     {children}
   </span>
 );
 
-const CTA = ({
-  href,
-  children,
-}: {
-  href?: string;
-  children: React.ReactNode;
-}) => (
-  <a
-    href={href && href !== "#" ? href : undefined}
-    target={href && href !== "#" ? "_blank" : undefined}
-    rel={href && href !== "#" ? "noopener noreferrer" : undefined}
-    aria-disabled={!href || href === "#"}
-    className={`group inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-      href && href !== "#"
-        ? "bg-white text-black hover:bg-white/90"
-        : "bg-white/10 text-white/60 cursor-not-allowed"
-    }`}
-  >
-    {children}
-  </a>
-);
-
 const Projects = () => {
-  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({
+    threshold: 0.15,
+  });
+
   return (
-    <div
+    <section
       ref={sectionRef}
-      className={`relative w-full h-full pt-10 overflow-x-hidden transition-all duration-700 ${
+      id="projects"
+      className={`relative w-full py-16 transition-all duration-700 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#5a3aff0f] to-transparent" />
-      <div className="mx-auto max-w-screen px-4 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#67e5bf0a] to-transparent" />
+      <div className="section-shell">
         <Loop
           texts={[
-            "Projects",
-            "////////////////////",
-            "Projects",
-            "////////////////////",
-            "Projects",
-            "////////////////////",
             "Projects",
             "////////////////////",
             "Projects",
@@ -110,133 +100,124 @@ const Projects = () => {
           direction="left"
         />
 
-        <div className="w-full flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6">
-          <div className="w-full px-0 md:px-4 flex flex-col items-center md:items-start text-center md:text-left border-y border-white/10 py-4">
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
-              <span className=" text-white bg-clip-text ">Projects</span>
-            </h1>
-            <p className="mt-3 max-w-2xl text-sm md:text-base text-white/70">
-              A few things I&apos;ve built and explored lately.
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 border-y border-white/10 py-5">
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-white/60 mb-2 flex items-center gap-2">
+              <Sparkles size={14} className="text-[#b9ff66]" /> Selected builds
+              from 2024–2025
+            </p>
+            <h2 className="text-3xl md:text-5xl font-[var(--font-display)] font-semibold text-white glow-underline">
+              Product work that ships
+            </h2>
+            <p className="mt-3 text-white/70 max-w-2xl">
+              Lean, resilient projects with real users: payments, networking, AI
+              surfaces, and platform plumbing. Every build tied to a clear outcome.
             </p>
           </div>
-          <div className="hidden md:block w-px h-20 md:h-40 bg-white/20" />
-          <div className="w-full md:w-auto flex gap-4 items-center justify-between md:justify-end md:pr-14 border-b md:border-b border-white/10 py-3 md:py-4">
-            <p className="hidden md:block mt-0 max-w-2xl text-xs md:text-base text-white/70">
-              {"//////////////////////////////////////////////////////////"}
-            </p>
-            <p className="text-xs md:text-sm text-white/70">Projects_test_12</p>
+          <div className="flex items-center gap-3 text-xs text-white/70">
+            <span className="rounded-full border border-white/12 bg-white/5 px-3 py-1">
+              Backend-leaning
+            </span>
+            <span className="rounded-full border border-white/12 bg-white/5 px-3 py-1">
+              Next.js · FastAPI · AWS
+            </span>
           </div>
         </div>
 
-        <ScrollStack
-          useWindowScroll
-          itemDistance={500}
-          itemStackDistance={5}
-          stackPosition="35%"
-          rotationAmount={0}
-          blurAmount={2}
-          itemScale={0.04}
-          baseScale={0.85}
-        >
-          {projectsData.map((p, idx) => (
-            <ScrollStackItem
-              key={p.title}
-              itemClassName="group relative overflow-hidden h-auto min-h-[20rem] md:min-h-[22rem] bg-white/5 text-white border border-white/10 backdrop-blur-sm"
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <article
+              key={project.title}
+              className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/5 backdrop-blur-sm p-6 flex flex-col gap-4"
             >
-              <div
-                className="relative flex flex-col gap-4 p-6 md:p-8"
-                onMouseMove={(e) => {
-                  const r = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - r.left;
-                  const y = e.clientY - r.top;
-                  e.currentTarget.style.setProperty("--mx", `${x}px`);
-                  e.currentTarget.style.setProperty("--my", `${y}px`);
-                }}
-              >
-                {/* strong per-card glow overlay */}
-                <div
-                  className="pointer-events-none absolute -inset-[1px] rounded-[40px] opacity-0 transition-opacity duration-150 group-hover:opacity-100"
-                  style={{
-                    background: `radial-gradient(320px 240px at var(--mx, 50%) var(--my, -30px), ${
-                      p.glow ?? "#ffffffaa"
-                    } 0%, transparent 60%)`,
-                    filter: `drop-shadow(0 0 70px ${p.glow ?? "#ffffff66"})`,
-                  }}
-                />
-                <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
-                    {p.title}
-                  </h2>
-                  <Badge>Featured</Badge>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                  <div className="space-y-4">
-                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
-                      {p.blurb}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {p.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full bg-[#6b50ff1a] text-[#cfc6ff] border border-[#6b50ff40] px-2.5 py-1 text-xs"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="relative h-48 md:h-56 w-full overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                    {p.image ? (
-                      <Image
-                        src={p.image}
-                        alt={p.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover object-center"
-                        priority={idx === 0}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 grid place-items-center text-white/50 text-sm">
-                        Preview coming soon
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-2 flex items-center gap-3 z-[10000]">
-                  <CTA href={p.links?.demo}>
-                    <ExternalLink size={16} />{" "}
-                    <DecryptedText
-                      text="Live Demo"
-                      maxIterations={20}
-                      sequential={true}
-                      animateOn="hover"
-                      useOriginalCharsOnly
-                      revealDirection="start"
-                      characters="ABCD1234!?"
-                    />
-                  </CTA>
-                  <CTA href={p.links?.repo}>
-                    <Github size={16} />{" "}
-                    <DecryptedText
-                      text="View Repo"
-                      maxIterations={20}
-                      sequential={true}
-                      animateOn="hover"
-                      useOriginalCharsOnly
-                      revealDirection="start"
-                      characters="ABCD1234!?"
-                    />
-                  </CTA>
-                </div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <div className="absolute inset-0 bg-[radial-gradient(480px_at_center,rgba(94,177,239,0.12),transparent_60%)]" />
               </div>
-            </ScrollStackItem>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">
+                    {project.timeframe}
+                  </p>
+                  <h3 className="text-xl font-semibold text-white">
+                    {project.title}
+                  </h3>
+                </div>
+                {project.badge && <Tag>{project.badge}</Tag>}
+              </div>
+
+              <div className="relative w-full h-44 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 360px"
+                  />
+                ) : (
+                  <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">
+                    Preview coming soon
+                  </div>
+                )}
+                {project.highlight && (
+                  <span className="absolute left-3 top-3 rounded-full bg-black/60 text-white px-3 py-1 text-xs border border-white/10 backdrop-blur">
+                    {project.highlight}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-sm text-white/80 leading-relaxed">
+                {project.summary}
+              </p>
+              <p className="text-sm text-white/70 leading-relaxed">
+                {project.impact}
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <Tag key={tech}>{tech}</Tag>
+                ))}
+              </div>
+
+              <div className="mt-auto flex items-center gap-3 pt-2">
+                {project.links?.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href ? "_blank" : undefined}
+                    rel={link.href ? "noopener noreferrer" : undefined}
+                    className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition ${
+                      link.href
+                        ? "bg-gradient-to-r from-[#5eb1ef] to-[#7dd1c8] text-black shadow-[0_10px_25px_rgba(94,177,239,0.25)] hover:opacity-90"
+                        : "bg-white/8 text-white/60 cursor-not-allowed"
+                    }`}
+                  >
+                    {link.label}
+                    {link.label.toLowerCase().includes("repo") ||
+                    link.label.toLowerCase().includes("git") ? (
+                      <Github size={16} />
+                    ) : (
+                      <ExternalLink size={16} />
+                    )}
+                  </a>
+                ))}
+                <span className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-[0.16em] text-white/60">
+                  <DecryptedText
+                    text="Shipped"
+                    animateOn="hover"
+                    sequential
+                    characters="ABCD1234!?"
+                    maxIterations={20}
+                    revealDirection="start"
+                  />
+                  <ArrowUpRight size={14} />
+                </span>
+              </div>
+            </article>
           ))}
-        </ScrollStack>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

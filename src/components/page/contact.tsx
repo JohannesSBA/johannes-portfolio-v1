@@ -68,20 +68,20 @@ const Contact = () => {
   return (
     <div
       ref={sectionRef}
-      className={`relative w-full min-h-screen pt-10 px-4 transition-all duration-700 ${
+      className={`relative w-full min-h-screen py-16 px-4 transition-all duration-700 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
-      <div className="mx-auto absolute inset-0 w-screen h-screen max-w-screen px-4 sm:px-6">
+      <div className="section-shell relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-y border-white/10 py-8">
           <div
-            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] text-white transition-all duration-700 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            }`}
-          >
+                className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95] text-white transition-all duration-700 ${
+                  visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                }`}
+              >
             <DecryptedText
               text="LET'S"
-              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95]"
+              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95]"
               encryptedClassName="text-white/80 blur-[0.5px]"
               parentClassName="leading-none"
               animateOn="both"
@@ -92,7 +92,7 @@ const Contact = () => {
             <br />
             <DecryptedText
               text="WORK"
-              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95]"
+              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95]"
               encryptedClassName="text-white/80 blur-[0.5px]"
               parentClassName="leading-none"
               animateOn="both"
@@ -102,7 +102,7 @@ const Contact = () => {
             />
             <DecryptedText
               text="TOGETHER"
-              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95]"
+              className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95]"
               encryptedClassName="text-white/80 blur-[0.5px]"
               parentClassName="leading-none"
               animateOn="both"
@@ -117,9 +117,9 @@ const Contact = () => {
             }`}
           >
             <p className="text-sm md:text-base leading-relaxed">
-              Get in touch today if you&apos;re looking to launch a website,
-              refine your existing site, or discuss a potential collaboration.
-              Let&apos;s find solutions together.
+              Ready when you are. Send a brief, a link, or a spark of an idea—I'll
+              respond within a day with next steps. Available for collaborations,
+              product teams, and select freelance projects.
             </p>
           </div>
         </div>
@@ -146,8 +146,8 @@ const Contact = () => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 py-10">
-          <div className="space-y-8">
-            <div>
+          <div className="space-y-6">
+            <div className="panel p-5 bg-white/5 border-white/10">
               <p className="text-[10px] tracking-[0.14em] uppercase text-white/50">
                 [Email]
               </p>
@@ -175,7 +175,22 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="space-y-1">
+            <div className="panel p-5 bg-white/5 border-white/10 space-y-1">
+              <p className="text-[10px] tracking-[0.14em] uppercase text-white/50">
+                [Phone]
+              </p>
+              <p className="text-sm md:text-base text-white/80 max-w-prose">
+                +1 (347) 425-4757
+              </p>
+              <p className="text-[10px] tracking-[0.14em] uppercase text-white/50 mt-3">
+                [Based in]
+              </p>
+              <p className="text-sm md:text-base text-white/80 max-w-prose">
+                Boston, MA · Remote friendly
+              </p>
+            </div>
+
+            <div className="panel p-5 bg-white/5 border-white/10 space-y-1">
               <p className="text-[10px] tracking-[0.14em] uppercase text-white/50">
                 [For Collaborators]
               </p>
@@ -186,7 +201,7 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="space-y-1">
+            <div className="panel p-5 bg-white/5 border-white/10 space-y-1">
               <p className="text-[10px] tracking-[0.14em] uppercase text-white/50">
                 [For Questions]
               </p>
@@ -198,7 +213,7 @@ const Contact = () => {
           </div>
 
           <form
-            className="space-y-6 relative p-6"
+            className="space-y-6 relative p-6 panel bg-white/5 border-white/12 overflow-hidden"
             onSubmit={async (e) => {
               e.preventDefault();
               const form = e.currentTarget as HTMLFormElement;
@@ -322,7 +337,7 @@ const Contact = () => {
                 className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition ${
                   submitting
                     ? "bg-white/70 text-black cursor-not-allowed"
-                    : "bg-white text-black hover:bg-white/90"
+                    : "bg-gradient-to-r from-[#5eb1ef] to-[#7dd1c8] text-black shadow-[0_15px_35px_rgba(94,177,239,0.25)] hover:opacity-90"
                 }`}
               >
                 {submitting ? "Sending…" : "Send inquiry"}

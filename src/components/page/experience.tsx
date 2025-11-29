@@ -26,14 +26,34 @@ type EducationItem = {
 
 const experiences: ExperienceItem[] = [
   {
+    role: "Product Management Externship",
+    company: "BeReal",
+    location: "",
+    start: "Nov 2025",
+    end: "Present",
+    blurb:
+      "Mapped end-to-end user journeys, benchmarked competitors, and proposed features targeting a projected 15–20% lift in session completion. Led focus groups with Illustrator prototypes, synthesizing qualitative insights into a data-backed engagement plan for Gen Z users.",
+    tags: ["Product thinking", "User research", "Prototyping"],
+  },
+  {
+    role: "Software Engineer",
+    company: "Freelance",
+    location: "",
+    start: "May 2024",
+    end: "Present",
+    blurb:
+      "Built Core Development's parking/EV payment web and mobile experience with React + AWS Amplify, boosting access and payment reliability. Delivered web presence for Gedeb Engineering and Yeshi's Ethiopian Cuisine, aligning on docs and deployment with founders.",
+    tags: ["React", "AWS Amplify", "Client delivery", "Payments"],
+  },
+  {
     role: "Software Engineer Intern",
     company: "Grassroots Grocery",
     location: "New York, NY",
     start: "May 2023",
     end: "Aug 2023",
     blurb:
-      "Designed automation to send event notifications to 2,000+ coordinators; cut manual driver assignments by 90% with JS scripts; established 6+ webhooks and text triggers boosting operational efficiency by ~50%; presented documentation and deployment plan to the founder and tech lead.",
-    tags: ["JavaScript", "Automation", "Webhooks", "Messaging"],
+      "Built TypeScript automation sending event notifications to 2,000+ coordinators, cutting manual driver assignments by 90%. Created 6+ webhooks and text triggers, boosting operational efficiency ~50%, and documented deployment for leadership.",
+    tags: ["TypeScript", "Automation", "Webhooks", "Messaging"],
   },
   {
     role: "Tech Volunteer",
@@ -42,41 +62,30 @@ const experiences: ExperienceItem[] = [
     start: "May 2022",
     end: "Aug 2022",
     blurb:
-      "Developed Flutter + Firebase apps for the GERD project enabling secure user authentication and account creation; participated in daily standups to report progress and unblock issues; collaborated within a Scrum Agile team, rotating through roles including team lead and scrum master.",
+      "Developed Flutter + Firebase apps for the GERD project to secure authentication and onboarding. Participated in daily standups, resolving blockers and rotating through team lead/scrum master roles.",
     tags: ["Flutter", "Firebase", "Scrum", "Git"],
-  },
-  {
-    role: "Intern",
-    company: "Websprix IT Solutions PLC",
-    location: "Addis Ababa, ET",
-    start: "Mar 2019",
-    end: "Mar 2019",
-    blurb:
-      "Facilitated onboarding documentation for new broadband connections; conducted customer follow-up calls to identify root causes of dissatisfaction and provide insights; represented the company at promotional events, distributing materials and communicating service benefits.",
-    tags: ["Customer Success", "Operations", "Documentation"],
   },
 ];
 
 const education: EducationItem[] = [
   {
     school: "Boston University",
-    degree: "M.Sc. Computer Science, Cyber Security concentration",
-    start: "2025",
-    end: "2026",
+    degree: "M.S. Computer Science, Cyber Security concentration",
+    start: "May 2025",
+    end: "Present",
     details: [
-      "Graduated with honors; focus on systems and security.",
-      "Led a capstone on secure web architectures.",
+      "Coursework: Operating Systems, Computer Networks, Software Engineering, Analysis of Algorithms, Computer Language Theory.",
     ],
     logo: "/boston.png",
   },
   {
     school: "Fordham University",
-    degree: "B.Sc. Computer Science",
-    start: "2021",
-    end: "2025",
+    degree: "B.S. Computer Science (GPA: 3.7)",
+    start: "Sep 2021",
+    end: "May 2025",
     details: [
-      "Graduated with honors; focus on systems and security.",
-      "Led a capstone on secure web architectures",
+      "Cum Laude, Faber Award recipient.",
+      "Coursework: Database Systems, Operating Systems, Algorithms, Cybersecurity & Applications, Data Mining, Machine Learning, Internet & Web Programming.",
     ],
     logo: "/fordham.png",
   },
@@ -89,7 +98,8 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ExperienceCard = ({ item }: { item: ExperienceItem }) => (
-  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-white backdrop-blur-sm">
+  <div className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/5 text-white backdrop-blur-sm">
+    <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#5eb1ef] via-[#7dd1c8] to-transparent" />
     <div className="relative flex flex-col gap-4 p-5 sm:p-6 md:p-8">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
@@ -143,14 +153,14 @@ const Experience = () => {
   return (
     <div
       ref={sectionRef}
-      className={`relative w-full min-h-screen pt-10 transition-all duration-700 ${
+      className={`relative w-full min-h-screen py-16 transition-all duration-700 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
       {/* soft background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#5a3aff0f] to-transparent" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#5eb1ef0f] to-transparent" />
 
-      <div className="mx-auto max-w-screen px-4 sm:px-6">
+      <div className="section-shell">
         <Loop
           texts={[
             "Experience",
@@ -167,20 +177,20 @@ const Experience = () => {
 
         {/* Header */}
         <div className="w-full flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6">
-          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left border-y border-white/10 py-4">
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
-              <span className="text-white bg-clip-text">Experience</span>
+          <div className="w-full flex flex-col items-start text-left border-y border-white/10 py-4">
+            <h1 className="text-3xl md:text-5xl font-[var(--font-display)] font-semibold tracking-tight text-white glow-underline">
+              Career track
             </h1>
             <p className="mt-3 max-w-2xl text-sm md:text-base text-white/70">
-              A snapshot of roles I&apos;ve held and what I learned.
+              Roles that taught me to ship quickly, listen closely, and keep teams
+              aligned. I thrive where design, engineering, and operations overlap.
             </p>
           </div>
           <div className="hidden md:block w-px h-20 md:h-40 bg-white/20" />
-          <div className="w-full md:w-auto flex gap-4 items-center justify-between md:justify-end md:pr-14 border-b md:border-b border-white/10 py-3 md:py-4">
-            <p className="hidden md:block mt-0 max-w-2xl text-xs md:text-base text-white/70">
-              {"//////////////////////////////////////////////////////////"}
+          <div className="w-full md:w-auto flex gap-4 items-center justify-between md:justify-end md:pr-4 border-b md:border-b border-white/10 py-3 md:py-4">
+            <p className="text-xs md:text-sm text-white/70">
+              Now → 2025 · Open to impactful teams
             </p>
-            <p className="text-xs md:text-sm text-white/70">Experience_01</p>
           </div>
         </div>
 
@@ -208,8 +218,9 @@ const Experience = () => {
           {education.map((edu) => (
             <div
               key={edu.school}
-              className="relative overflow-hidden my-2 rounded-2xl border border-white/10 bg-white/5 text-white backdrop-blur-sm p-5 sm:p-6 md:p-8"
+              className="relative overflow-hidden my-2 rounded-2xl border border-white/12 bg-white/5 text-white backdrop-blur-sm p-5 sm:p-6 md:p-8"
             >
+              <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#5eb1ef] via-[#7dd1c8] to-transparent" />
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <p className="text-base md:text-lg font-medium">
