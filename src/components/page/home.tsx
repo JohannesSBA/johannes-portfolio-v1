@@ -46,7 +46,7 @@ export default function Home() {
               onComplete={() => setIsTypingComplete(true)}
             />
             <div
-              className={`transition-all duration-700 ${
+              className={`transition-all duration-700 h-96 ${
                 isTypingComplete
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-6"

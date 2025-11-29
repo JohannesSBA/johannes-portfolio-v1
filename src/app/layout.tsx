@@ -20,6 +20,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Johannes Bekele",
   description: "Johannes Bekele's Portfolio",
+  icons: {
+    icon: "/joico.png",
+    shortcut: "/joico.png",
+    apple: "/joico.png",
+  },
 };
 
 export default function RootLayout({

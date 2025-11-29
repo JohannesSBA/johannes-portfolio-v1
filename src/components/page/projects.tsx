@@ -28,7 +28,10 @@ const projects: Project[] = [
       "Built responsive UI and integrated Stripe, scheduling, and CI/CD to stabilize deployments across environments.",
     stack: ["Next.js", "FastAPI", "TypeScript", "Tailwind", "Stripe", "CI/CD"],
     links: [
-      { label: "Github", href: "https://github.com/BUMETCS673/cs673f25a2project-cs673a2f25team5" },
+      {
+        label: "Github",
+        href: "https://github.com/BUMETCS673/cs673f25a2project-cs673a2f25team5",
+      },
     ],
     image: "/kickaas.png",
     badge: "AI + Events",
@@ -49,6 +52,19 @@ const projects: Project[] = [
     image: "/econnect.jpeg",
     badge: "Networking",
     highlight: "Localized onboarding",
+  },
+  {
+    title: "Gedeb Engineering",
+    timeframe: "2024",
+    image: "/GedebEngineering.png",
+    summary:
+      "Web presence for Gedeb Engineering, showcasing John Deere tractors, combines, and sprayers engineered for Ethiopian investors, growers, and cooperatives.",
+    impact:
+      "Clarified SKD assembly, financing, and nationwide service hubs; gave sales teams a trustworthy digital touchpoint to support mechanisation projects season after season.",
+    stack: ["React", "Tailwind", "Static site", "SEO"],
+    links: [{ label: "Live", href: "https://www.gedebengineeringplc.com/" }],
+    badge: "Client build",
+    highlight: "John Deere Ethiopia",
   },
   {
     title: "Core Development Payments",
@@ -111,12 +127,13 @@ const Projects = () => {
             </h2>
             <p className="mt-3 text-white/70 max-w-2xl">
               Lean, resilient projects with real users: payments, networking, AI
-              surfaces, and platform plumbing. Every build tied to a clear outcome.
+              surfaces, and platform plumbing. Every build tied to a clear
+              outcome.
             </p>
           </div>
           <div className="flex items-center gap-3 text-xs text-white/70">
             <span className="rounded-full border border-white/12 bg-white/5 px-3 py-1">
-              Backend-leaning
+              Frontend-leaning
             </span>
             <span className="rounded-full border border-white/12 bg-white/5 px-3 py-1">
               Next.js · FastAPI · AWS
