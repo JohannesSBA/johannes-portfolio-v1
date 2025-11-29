@@ -51,7 +51,9 @@ const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement>) => (
 );
 
 const Contact = () => {
-  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const { ref: sectionRef, visible } = useInViewOnce<HTMLDivElement>({
+    threshold: 0.2,
+  });
   const [copied, setCopied] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitOk, setSubmitOk] = useState(false);
@@ -75,10 +77,10 @@ const Contact = () => {
       <div className="section-shell relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-y border-white/10 py-8">
           <div
-                className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95] text-white transition-all duration-700 ${
-                  visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-              >
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95] text-white transition-all duration-700 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
+          >
             <DecryptedText
               text="LET'S"
               className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-semibold leading-[0.95]"
@@ -117,9 +119,9 @@ const Contact = () => {
             }`}
           >
             <p className="text-sm md:text-base leading-relaxed">
-              Ready when you are. Send a brief, a link, or a spark of an idea—I'll
-              respond within a day with next steps. Available for collaborations,
-              product teams, and select freelance projects.
+              Ready when you are. Send a brief, a link, or a spark of an
+              idea—I&apos;ll respond within a day with next steps. Available for
+              collaborations, product teams, and select freelance projects.
             </p>
           </div>
         </div>
@@ -225,7 +227,9 @@ const Contact = () => {
                 brief: String(entries.brief || ""),
                 url: entries.url ? String(entries.url) : undefined,
                 stage: entries.stage ? String(entries.stage) : undefined,
-                deadline: entries.deadline ? String(entries.deadline) : undefined,
+                deadline: entries.deadline
+                  ? String(entries.deadline)
+                  : undefined,
                 budget: entries.budget ? String(entries.budget) : undefined,
               };
               setSubmitting(true);
@@ -236,7 +240,8 @@ const Contact = () => {
                 setSubmitOk(true);
                 form.reset();
               } catch (err: unknown) {
-                const message = err instanceof Error ? err.message : "Something went wrong";
+                const message =
+                  err instanceof Error ? err.message : "Something went wrong";
                 setSubmitError(message);
               } finally {
                 setSubmitting(false);

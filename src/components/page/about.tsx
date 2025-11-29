@@ -1,5 +1,4 @@
 import React from "react";
-import CurvedLoop from "../CurvedLoop";
 import Image from "next/image";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
 
