@@ -29,7 +29,7 @@ export default function Home() {
               Available for select work
             </span>
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-              Boston · Remote friendly
+              Boston, MA · New York, NY · Remote friendly
             </span>
           </div>
 

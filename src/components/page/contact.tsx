@@ -188,7 +188,7 @@ const Contact = () => {
                 [Based in]
               </p>
               <p className="text-sm md:text-base text-white/80 max-w-prose">
-                Boston, MA · Remote friendly
+                Boston, MA · New York, NY · Remote friendly
               </p>
             </div>
 
