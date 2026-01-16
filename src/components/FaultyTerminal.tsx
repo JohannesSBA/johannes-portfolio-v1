@@ -26,6 +26,16 @@ export interface FaultyTerminalProps
   brightness?: number;
 }
 
+const canUseWebGL = () => {
+  if (typeof window === "undefined") return false;
+  const canvas = document.createElement("canvas");
+  const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+  if (gl && typeof gl.getExtension === "function") {
+    gl.getExtension("WEBGL_lose_context")?.loseContext?.();
+  }
+  return !!gl;
+};
+
 const vertexShader = `
 attribute vec2 position;
 attribute vec2 uv;
@@ -299,10 +309,20 @@ export default function FaultyTerminal({
   useEffect(() => {
     const ctn = containerRef.current;
     if (!ctn) return;
+    if (!canUseWebGL()) {
+      console.warn("FaultyTerminal skipped: WebGL not available");
+      return;
+    }
 
     const effectiveDpr =
       typeof dpr === "number" ? dpr : Math.min((window.devicePixelRatio || 1), 2);
-    const renderer = new Renderer({ dpr: effectiveDpr });
+    let renderer: Renderer;
+    try {
+      renderer = new Renderer({ dpr: effectiveDpr });
+    } catch (error) {
+      console.warn("FaultyTerminal skipped: WebGL renderer unavailable", error);
+      return;
+    }
     rendererRef.current = renderer;
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 1);

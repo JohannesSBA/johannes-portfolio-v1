@@ -30,6 +30,16 @@ interface LightRaysProps {
 
 const DEFAULT_COLOR = "#ffffff";
 
+const canUseWebGL = () => {
+  if (typeof window === "undefined") return false;
+  const canvas = document.createElement("canvas");
+  const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+  if (gl && typeof gl.getExtension === "function") {
+    gl.getExtension("WEBGL_lose_context")?.loseContext?.();
+  }
+  return !!gl;
+};
+
 const hexToRgb = (hex: string): [number, number, number] => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return m
@@ -142,15 +152,25 @@ const LightRays: React.FC<LightRaysProps> = ({
 
     const initializeWebGL = async () => {
       if (!containerRef.current) return;
+      if (!canUseWebGL()) {
+        console.warn("LightRays skipped: WebGL not available");
+        return;
+      }
 
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       if (!containerRef.current) return;
 
-      const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
-        alpha: true,
-      });
+      let renderer: Renderer;
+      try {
+        renderer = new Renderer({
+          dpr: Math.min(window.devicePixelRatio, 2),
+          alpha: true,
+        });
+      } catch (error) {
+        console.warn("LightRays skipped: WebGL renderer unavailable", error);
+        return;
+      }
       rendererRef.current = renderer;
 
       const gl = renderer.gl;
